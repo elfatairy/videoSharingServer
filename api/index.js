@@ -3,9 +3,10 @@ const app = express();
 
 // Mock function to fetch video data (replace with your actual logic)
 async function getVideoData(videoId) {
-  const response = await fetch(`https://server.infotik.co/posts/${videoId}`);
-  if (!response.ok) {
-    return { title: "Video not found", description: "Video not found", thumbnail: "" };
+  try {
+    const response = await fetch(`https://server.infotik.co/posts/${videoId}`);
+    if (!response.ok) {
+      return { title: "Video not found", description: "Video not found", thumbnail: "" };
   }
   const jsonData = await response.json();
   if (jsonData && jsonData.statusCode === 200) {
@@ -14,8 +15,11 @@ async function getVideoData(videoId) {
       description: jsonData.data.description,
       thumbnail: getThumbUrl(jsonData.data.thumbnailObjectName),
     };
+    }
+    return { title: "Video not found", description: "Video not found", thumbnail: "" };
+  } catch (error) {
+    return { title: "Video not found", description: "Video not found", thumbnail: "" };
   }
-  return { title: "Video not found", description: "Video not found", thumbnail: "" };
 }
 
 function getThumbUrl(objectName) {
