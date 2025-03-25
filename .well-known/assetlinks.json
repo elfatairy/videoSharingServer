@@ -1,0 +1,16 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.zeeshan_raza.infotik",
+            "sha256_cert_fingerprints": [
+                "B5:63:6C:F8:C6:77:B9:E2:CA:D0:BF:59:C6:4B:BF:17:A6:E8:C4:42:A5:87:9D:F0:B5:80:F4:14:6A:C9:87:01",
+                "4A:95:AF:95:7F:D4:90:F5:AD:4D:96:27:6D:55:BF:08:48:73:98:22:AE:8F:09:6B:AE:1D:A6:D4:E9:ED:84:4F",
+                "FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C"
+            ]
+        }
+    }
+]
