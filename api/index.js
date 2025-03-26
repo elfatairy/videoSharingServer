@@ -28,7 +28,6 @@ function getThumbUrl(objectName) {
 
 
 app.get("/:videoId", async (req, res) => {
-  console.log(req);
   const { videoId } = req.params;
   const { title, description, thumbnail } = await getVideoData(videoId);
 
@@ -56,11 +55,6 @@ app.get("/:videoId", async (req, res) => {
                 margin: 0;
                 background-color: #f5f5f5;
             }
-
-            #postId {
-                font-size: 2rem;
-                color: #333;
-            }
         </style>
     </head>
 
@@ -68,9 +62,6 @@ app.get("/:videoId", async (req, res) => {
         Loading...
 
         <script>
-            const path = window.location.pathname;
-            const postId = path.split('/')[1];
-
             function detectDevice() {
                 const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
@@ -94,7 +85,7 @@ app.get("/:videoId", async (req, res) => {
                       "https://play.google.com/store/apps/details?id=com.zeeshan_raza.infotik"
                     )};end\`;
                     // window.location.href = \`intent://co#Intent;scheme=infotik.co;package=com.zeeshan_raza.infotik;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.zeeshan_raza.infotik;end\`;
-                    window.location.href = \`intent://${postId}#Intent;scheme=infotik.co;package=com.zeeshan_raza.infotik;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.zeeshan_raza.infotik;end\`;
+                    window.location.href = \`intent://${videoId}#Intent;scheme=infotik.co;package=com.zeeshan_raza.infotik;S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.zeeshan_raza.infotik;end\`;
                     // window.location.href = "infotik.co://"; 
                 } else if (deviceType === 'web') {
                     // Redirect web users to the website
