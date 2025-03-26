@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/:videoId",
-      "destination": "/api/index"
+      "destination": "/api/:videoId"
     }
   ]
 } 
