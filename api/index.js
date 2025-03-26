@@ -27,7 +27,8 @@ function getThumbUrl(objectName) {
 }
 
 
-app.get("/api/:videoId", async (req, res) => {
+app.get("/:videoId", async (req, res) => {
+  console.log(req);
   const { videoId } = req.params;
   const { title, description, thumbnail } = await getVideoData(videoId);
 
