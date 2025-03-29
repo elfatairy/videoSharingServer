@@ -26,6 +26,9 @@ function getThumbUrl(objectName) {
   return `https://server.infotik.co/posts/thumbnail/${objectName}`;
 }
 
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 
 app.get("/:videoId", async (req, res) => {
   const { videoId } = req.params;
