@@ -47,7 +47,7 @@ function getThumbUrl(objectName) {
 }
 
 app.get("/", (req, res) => {
-  window.location.href = "https://www.infotik.co";
+  res.redirect("https://www.infotik.co");
 });
 
 app.get("/video/:videoId", async (req, res) => {
