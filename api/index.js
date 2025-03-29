@@ -162,9 +162,7 @@ app.get("/pulse/:pulseId", async (req, res) => {
       <meta property="og:title" content="Some Random Title">
       <meta property="og:description" content="Some Random Description">
         <meta property="og:image" content="https://images.unsplash.com/photo-1742330425089-1f91d18eaa4e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
-        <meta property="og:url" content="https://${
-          req.headers.host
-        }/${pulseId}">
+        <meta property="og:url" content="https://someurl.com">
         <meta property="og:type" content="pulse.other">
       </head>
       <style>
