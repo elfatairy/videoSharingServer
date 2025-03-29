@@ -80,17 +80,32 @@ app.get("/video/:videoId", async (req, res) => {
 
   const html = `
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="en" prefix="og: https://ogp.me/ns#">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>${title}</title>
-        <meta property="og:title" content="${title}">
-        <meta property="og:description" content="${description}">
-          <meta property="og:image" content="${thumbnail}">
-          <meta property="og:url" content="https://${req.headers.host}/${videoId}">
-          <meta property="og:type" content="video.other">
+        <!-- HTML Meta Tags -->
+        <title>The Rock</title>
+        <meta name="description" content="">
+
+        <!-- Facebook Meta Tags -->
+        <meta property="og:url" content="https://app.infotik.co/pulse/eefde923-91a5-4389-be9d-26b649bceb20">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="The Rock">
+        <meta property="og:description" content="some random description">
+        <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Dk9LNEL8ZYps1GGzR2kC_3TcExANdy_06g&s">
+
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:domain" content="app.infotik.co">
+        <meta property="twitter:url" content="https://app.infotik.co/pulse/eefde923-91a5-4389-be9d-26b649bceb20">
+        <meta name="twitter:title" content="The Rock">
+        <meta name="twitter:description" content="">
+        <meta name="twitter:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Dk9LNEL8ZYps1GGzR2kC_3TcExANdy_06g&s">
+
+        <!-- Meta Tags Generated via https://www.opengraph.xyz -->
         </head>
         <style>
             body {
