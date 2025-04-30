@@ -59,7 +59,6 @@ async function getImageAsDataUri(objectName: string, bucketName: string) {
 async function getVideoData(videoId) {
   try {
     const response = await fetch(`https://server.infotik.co/posts/${videoId}`);
-    console.log(response);
     if (!response.ok) {
       console.log("not ok");
       return {
@@ -70,6 +69,7 @@ async function getVideoData(videoId) {
     }
     const jsonData = await response.json();
     if (jsonData && jsonData.statusCode === 200) {
+      console.log("jsonData.data.thumbnailObjectName", jsonData.data.thumbnailObjectName)
       return {
         title: jsonData.data.user?.displayName ?? "Infotik",
         description: jsonData.data.description,
@@ -143,8 +143,9 @@ app.get("/video/:videoId", async (req, res) => {
   console.log("requesting video", req.params.videoId);
   const { videoId } = req.params;
   const { title, description, thumbnail } = await getVideoData(videoId);
-  console.log("title, description, thumbnail");
-  console.log(title, description, thumbnail);
+  console.log("title", title);
+  console.log("description", description); 
+  console.log("thumbnail", thumbnail);
 
   const html = `
     <!DOCTYPE html>
