@@ -5,7 +5,9 @@ const app = express();
 async function getVideoData(videoId) {
   try {
     const response = await fetch(`https://server.infotik.co/posts/${videoId}`);
+    console.log(response);
     if (!response.ok) {
+      console.log("not ok");
       return {
         title: "Video not found",
         description: "Video not found",
@@ -20,12 +22,11 @@ async function getVideoData(videoId) {
         thumbnail: getThumbUrl(jsonData.data.thumbnailObjectName),
       };
     }
-    return {
-      title: "Video not found",
-      description: "Video not found",
-      thumbnail: "",
-    };
   } catch (error) {
+    console.log("error");
+    console.log(error);
+  } finally {
+    console.log("finally");
     return {
       title: "Video not found",
       description: "Video not found",
@@ -52,12 +53,11 @@ async function getPulseData(videoId) {
         thumbnail: getThumbUrl(jsonData.data.thumbnailObjectName),
       };
     }
-    return {
-      title: "Video not found",
-      description: "Video not found",
-      thumbnail: "",
-    };
   } catch (error) {
+    console.log("error");
+    console.log(error);
+  } finally {
+    console.log("finally");
     return {
       title: "Video not found",
       description: "Video not found",
