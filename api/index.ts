@@ -1,7 +1,61 @@
 const express = require("express");
 const app = express();
+import {
+  S3Client,
+  GetObjectCommand,
+} from "@aws-sdk/client-s3";
 
-// Mock function to fetch video data (replace with your actual logic)
+const s3 = new S3Client({
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: process.env.S3_ACCESS_KEY ?? "",
+    secretAccessKey: process.env.S3_SECRET_KEY ?? "",
+  },
+});
+
+async function getImageAsDataUri(objectName: string, bucketName: string) {
+  try {
+    const command = new GetObjectCommand({
+      Bucket: bucketName,
+      Key: objectName,
+    });
+    const response = await s3.send(command);
+
+    if (!response.Body) {
+      console.log(`File body not found for object: ${objectName}`);
+      return null;
+    }
+    if (!response.ContentType) {
+      console.log(
+        `ContentType metadata missing for object: ${objectName}. Cannot create Data URI.`
+      );
+      return null;
+    }
+
+    const mimeType = response.ContentType;
+    const bytearray = await response.Body.transformToByteArray();
+    const buffer = Buffer.from(bytearray);
+
+    const base64Data = buffer.toString("base64");
+
+    const dataUri = `data:${mimeType};base64,${base64Data}`;
+
+    console.log(
+      `Generated Data URI for ${objectName} (type: ${mimeType}), length: ${dataUri.length}`
+    );
+    return dataUri;
+  } catch (error) {
+    if (error.name === "NoSuchKey") {
+      console.log(
+        `Error: Object ${objectName} not found in bucket ${bucketName}.`
+      );
+    } else {
+      console.error(`Error fetching object ${objectName} from S3:`, error);
+    }
+    return null;
+  }
+}
+
 async function getVideoData(videoId) {
   try {
     const response = await fetch(`https://server.infotik.co/posts/${videoId}`);
@@ -19,10 +73,10 @@ async function getVideoData(videoId) {
       return {
         title: jsonData.data.user?.displayName ?? "Infotik",
         description: jsonData.data.description,
-        thumbnail: getThumbUrl(jsonData.data.thumbnailObjectName),
+        thumbnail: getImageAsDataUri(process.env.THUMBNAILS_BUCKET ?? "", jsonData.data.thumbnailObjectName) ?? ""
       };
     }
-    
+
     return {
       title: "Video not found",
       description: "Video not found",
@@ -31,7 +85,7 @@ async function getVideoData(videoId) {
   } catch (error) {
     console.log("error");
     console.log(error);
-    
+
     return {
       title: "Video not found",
       description: "Video not found",
