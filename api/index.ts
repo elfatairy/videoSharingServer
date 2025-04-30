@@ -13,7 +13,7 @@ const s3 = new S3Client({
   },
 });
 
-async function getImageAsDataUri(objectName: string, bucketName: string) {
+async function getImageAsDataUri(bucketName: string, objectName: string) {
   try {
     const command = new GetObjectCommand({
       Bucket: bucketName,
