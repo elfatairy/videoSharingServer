@@ -73,7 +73,7 @@ async function getVideoData(videoId) {
       return {
         title: jsonData.data.user?.displayName ?? "Infotik",
         description: jsonData.data.description,
-        thumbnail: getImageAsDataUri(process.env.THUMBNAILS_BUCKET ?? "", jsonData.data.thumbnailObjectName) ?? ""
+        thumbnail: await getImageAsDataUri(process.env.THUMBNAILS_BUCKET ?? "", jsonData.data.thumbnailObjectName) ?? ""
       };
     }
 
