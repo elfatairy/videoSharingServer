@@ -77,6 +77,8 @@ app.get("/", (req, res) => {
 app.get("/video/:videoId", async (req, res) => {
   const { videoId } = req.params;
   const { title, description, thumbnail } = await getVideoData(videoId);
+  console.log("title, description, thumbnail");
+  console.log(title, description, thumbnail);
 
   const html = `
     <!DOCTYPE html>
