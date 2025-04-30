@@ -22,11 +22,16 @@ async function getVideoData(videoId) {
         thumbnail: getThumbUrl(jsonData.data.thumbnailObjectName),
       };
     }
+    
+    return {
+      title: "Video not found",
+      description: "Video not found",
+      thumbnail: "",
+    };
   } catch (error) {
     console.log("error");
     console.log(error);
-  } finally {
-    console.log("finally");
+    
     return {
       title: "Video not found",
       description: "Video not found",
@@ -53,11 +58,16 @@ async function getPulseData(videoId) {
         thumbnail: getThumbUrl(jsonData.data.thumbnailObjectName),
       };
     }
+
+    return {
+      title: "Video not found",
+      description: "Video not found",
+      thumbnail: "",
+    };
   } catch (error) {
     console.log("error");
     console.log(error);
-  } finally {
-    console.log("finally");
+
     return {
       title: "Video not found",
       description: "Video not found",
