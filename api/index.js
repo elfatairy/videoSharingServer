@@ -93,17 +93,17 @@ app.get("/video/:videoId", async (req, res) => {
         <!-- Facebook Meta Tags -->
         <meta property="og:url" content="https://app.infotik.co/video/${videoId}">
         <meta property="og:type" content="video.other">
-        <meta property="og:title" content=\`${title}\`>
-        <meta property="og:description" content=\`${description}\`>
-        <meta property="og:image" content=\`${thumbnail}\`>
+        <meta property="og:title" content="${title}">
+        <meta property="og:description" content="${description}">
+        <meta property="og:image" content="${thumbnail}">
 
         <!-- Twitter Meta Tags -->
         <meta name="twitter:card" content="summary_large_image">
         <meta property="twitter:domain" content="app.infotik.co">
         <meta property="twitter:url" content="https://app.infotik.co/video/${videoId}">
-        <meta name="twitter:title" content=\`${title}\`>
-        <meta name="twitter:description" content=\`${description}\`>
-        <meta name="twitter:image" content=\`${thumbnail}\`>
+        <meta name="twitter:title" content="${title}">
+        <meta name="twitter:description" content="${description}">
+        <meta name="twitter:image" content="${thumbnail}">
 
         <!-- Meta Tags Generated via https://www.opengraph.xyz -->
         </head>
@@ -179,17 +179,17 @@ app.get("/pulse/:pulseId", async (req, res) => {
       <!-- Facebook Meta Tags -->
       <meta property="og:url" content="https://app.infotik.co/pulse/${pulseId}">
       <meta property="og:type" content="article">
-      <meta property="og:title" content=\`${title}\`>
-      <meta property="og:description" content=\`${description}\`>
-      <meta property="og:image" content=\`${thumbnail}\`>
+      <meta property="og:title" content="${title}">
+      <meta property="og:description" content="${description}">
+      <meta property="og:image" content="${thumbnail}">
 
       <!-- Twitter Meta Tags -->
       <meta name="twitter:card" content="summary_large_image">
       <meta property="twitter:domain" content="app.infotik.co">
       <meta property="twitter:url" content="https://app.infotik.co/pulse/${pulseId}">
-      <meta name="twitter:title" content=\`${title}\`>
-      <meta name="twitter:description" content=\`${description}\`>
-      <meta name="twitter:image" content=\`${thumbnail}\`>
+      <meta name="twitter:title" content="${title}">
+      <meta name="twitter:description" content="${description}">
+      <meta name="twitter:image" content="${thumbnail}">
       <style>
           body {
               font-family: Arial, sans-serif;
