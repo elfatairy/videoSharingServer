@@ -71,6 +71,7 @@ function getThumbUrl(objectName) {
 }
 
 app.get("/", (req, res) => {
+  console.log("redirecting to infotik.co");
   res.redirect("https://www.infotik.co");
 });
 
