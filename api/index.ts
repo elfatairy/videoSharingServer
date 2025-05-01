@@ -45,7 +45,7 @@ async function getVideoData(videoId: string) {
 
 async function getPulseData(pulseId: string) {
   try {
-    const response = await fetch(`https://server.infotik.co/pulse/${pulseId}`);
+    const response = await fetch(`https://server.infotik.co/pulses/${pulseId}`);
     if (!response.ok) {
       return {
         title: "Video not found",
