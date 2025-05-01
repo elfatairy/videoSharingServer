@@ -58,7 +58,7 @@ async function getPulseData(pulseId: string) {
       return {
         title: jsonData.data.user?.displayName ?? "Infotik",
         description: jsonData.data.content,
-        thumbnail: `https://infotik-profile-pics.s3.us-east-1.amazonaws.com/${jsonData.data.profilePicObjectName}`,
+        thumbnail: `https://infotik-profile-pics.s3.us-east-1.amazonaws.com/${jsonData.data.user.profilePicObjectName}`,
       };
     }
 
