@@ -1,12 +1,16 @@
 {
   "name": "infotik-video-sharing-server",
   "version": "1.0.0",
-  "main": "api/index.js",
+  "main": "api/index.ts",
+  "module": "api/index.ts",
   "scripts": {
-    "start": "node api/index.js"
+    "start": "node api/index.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.800.0",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3"
   }
 }

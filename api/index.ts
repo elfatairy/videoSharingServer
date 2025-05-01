@@ -1,62 +1,8 @@
-const express = require("express");
+import express from "express";
+
 const app = express();
-import {
-  S3Client,
-  GetObjectCommand,
-} from "@aws-sdk/client-s3";
 
-const s3 = new S3Client({
-  region: "us-east-1",
-  credentials: {
-    accessKeyId: process.env.S3_ACCESS_KEY ?? "",
-    secretAccessKey: process.env.S3_SECRET_KEY ?? "",
-  },
-});
-
-async function getImageAsDataUri(bucketName: string, objectName: string) {
-  try {
-    const command = new GetObjectCommand({
-      Bucket: bucketName,
-      Key: objectName,
-    });
-    const response = await s3.send(command);
-
-    if (!response.Body) {
-      console.log(`File body not found for object: ${objectName}`);
-      return null;
-    }
-    if (!response.ContentType) {
-      console.log(
-        `ContentType metadata missing for object: ${objectName}. Cannot create Data URI.`
-      );
-      return null;
-    }
-
-    const mimeType = response.ContentType;
-    const bytearray = await response.Body.transformToByteArray();
-    const buffer = Buffer.from(bytearray);
-
-    const base64Data = buffer.toString("base64");
-
-    const dataUri = `data:${mimeType};base64,${base64Data}`;
-
-    console.log(
-      `Generated Data URI for ${objectName} (type: ${mimeType}), length: ${dataUri.length}`
-    );
-    return dataUri;
-  } catch (error) {
-    if (error.name === "NoSuchKey") {
-      console.log(
-        `Error: Object ${objectName} not found in bucket ${bucketName}.`
-      );
-    } else {
-      console.error(`Error fetching object ${objectName} from S3:`, error);
-    }
-    return null;
-  }
-}
-
-async function getVideoData(videoId) {
+async function getVideoData(videoId: string) {
   try {
     const response = await fetch(`https://server.infotik.co/posts/${videoId}`);
     if (!response.ok) {
@@ -69,11 +15,14 @@ async function getVideoData(videoId) {
     }
     const jsonData = await response.json();
     if (jsonData && jsonData.statusCode === 200) {
-      console.log("jsonData.data.thumbnailObjectName", jsonData.data.thumbnailObjectName)
+      console.log(
+        "jsonData.data.thumbnailObjectName",
+        jsonData.data.thumbnailObjectName
+      );
       return {
         title: jsonData.data.user?.displayName ?? "Infotik",
         description: jsonData.data.description,
-        thumbnail: await getImageAsDataUri(process.env.THUMBNAILS_BUCKET ?? "", jsonData.data.thumbnailObjectName) ?? ""
+        thumbnail: `https://infotik-thumbnails.s3.us-east-1.amazonaws.com/${jsonData.data.thumbnailObjectName}`,
       };
     }
 
@@ -94,9 +43,9 @@ async function getVideoData(videoId) {
   }
 }
 
-async function getPulseData(videoId) {
+async function getPulseData(pulseId: string) {
   try {
-    const response = await fetch(`https://server.infotik.co/pulse/${videoId}`);
+    const response = await fetch(`https://server.infotik.co/pulse/${pulseId}`);
     if (!response.ok) {
       return {
         title: "Video not found",
@@ -108,14 +57,14 @@ async function getPulseData(videoId) {
     if (jsonData && jsonData.statusCode === 200) {
       return {
         title: jsonData.data.user?.displayName ?? "Infotik",
-        description: jsonData.data.description,
-        thumbnail: getThumbUrl(jsonData.data.thumbnailObjectName),
+        description: jsonData.data.content,
+        thumbnail: `https://infotik-profile-pics.s3.us-east-1.amazonaws.com/${jsonData.data.profilePicObjectName}`,
       };
     }
 
     return {
-      title: "Video not found",
-      description: "Video not found",
+      title: "Pulse not found",
+      description: "Pulse not found",
       thumbnail: "",
     };
   } catch (error) {
@@ -123,15 +72,11 @@ async function getPulseData(videoId) {
     console.log(error);
 
     return {
-      title: "Video not found",
-      description: "Video not found",
+      title: "Pulse not found",
+      description: "Pulse not found",
       thumbnail: "",
     };
   }
-}
-
-function getThumbUrl(objectName) {
-  return `https://server.infotik.co/posts/thumbnail/${objectName}`;
 }
 
 app.get("/", (req, res) => {
@@ -144,7 +89,7 @@ app.get("/video/:videoId", async (req, res) => {
   const { videoId } = req.params;
   const { title, description, thumbnail } = await getVideoData(videoId);
   console.log("title", title);
-  console.log("description", description); 
+  console.log("description", description);
   console.log("thumbnail", thumbnail);
 
   const html = `
