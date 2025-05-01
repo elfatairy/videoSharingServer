@@ -175,8 +175,12 @@ app.get("/video/:videoId", async (req, res) => {
 });
 
 app.get("/pulse/:pulseId", async (req, res) => {
+  console.log("requesting pulse", req.params.pulseId);
   const { pulseId } = req.params;
   const { title, description, thumbnail } = await getPulseData(pulseId);
+  console.log("title", title);
+  console.log("description", description);
+  console.log("thumbnail", thumbnail);
 
   const html = `
     <!DOCTYPE html>
