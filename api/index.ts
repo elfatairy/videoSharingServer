@@ -261,5 +261,9 @@ app.get("/pulse/:pulseId", async (req, res) => {
   res.send(html);
 });
 
+app.get("/discord", (req, res) => {
+  res.redirect("https://discord.gg/XknCYmpFCJ");
+});
+
 // Export the app for Vercel
 module.exports = app;
