@@ -262,7 +262,7 @@ app.get("/pulse/:pulseId", async (req, res) => {
 });
 
 app.get("/discord", (req, res) => {
-  res.redirect("https://discord.gg/XknCYmpFCJ");
+  res.redirect("https://discord.gg/7JHfYP7Dt2 ");
 });
 
 // Export the app for Vercel
